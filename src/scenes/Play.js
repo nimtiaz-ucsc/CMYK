@@ -15,7 +15,25 @@ class Play extends Phaser.Scene {
 
         this.player = this.add.rectangle(game.config.width/4, game.config.height/2, 100, 200, RED).setOrigin(0.5);
 
-        //this.switcher = //sprite here
+        this.switcher = this.add.group();
+        this.rect0 = this.add.rectangle(game.config.width/2, game.config.height/2, 100, 100, GREEN).setOrigin(0).setAngle(45);
+        this.rect1 = this.add.rectangle(game.config.width/2, game.config.height/2, 100, 100, BLUE).setOrigin(0).setAngle(45*3);
+        this.rect2 = this.add.rectangle(game.config.width/2, game.config.height/2, 100, 100, YELLOW).setOrigin(0).setAngle(45*5);
+        this.rect3 = this.add.rectangle(game.config.width/2, game.config.height/2, 100, 100, RED).setOrigin(0).setAngle(45*7);
+        this.rect4 = this.add.rectangle(game.config.width/2, game.config.height/2, 100, 100, 0xFFFFFF).setAngle(45);
+
+        this.switcher.add(this.rect0);
+        this.switcher.add(this.rect1);
+        this.switcher.add(this.rect2);
+        this.switcher.add(this.rect3);
+        this.switcher.add(this.rect4);
+
+        this.tweens.add({
+            targets: [this.switcher.getChildren()],
+            scaleX: 1,
+            scaleY: 1,
+            duration: 100
+        });
 
         this.input.on('pointerdown', () => {
             console.log('click');
