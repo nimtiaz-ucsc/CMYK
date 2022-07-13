@@ -15,8 +15,6 @@ class Play extends Phaser.Scene {
 
         this.player = this.add.rectangle(game.config.width/4, game.config.height/2, 100, 200, Color1).setOrigin(0.5);
 
-        this.switcher = this.add.sprite(game.config.width/2, game.config.height/2, 'switcher').setScale(0);
-
         this.anims.create({
             key: 'switch',
             frames: this.anims.generateFrameNumbers('switcher', {start: 0, end: 4, first: 0}),
@@ -24,31 +22,54 @@ class Play extends Phaser.Scene {
             repeat: 0
         })
 
-        //this.frame = 0;
+        this.switcher = this.add.sprite(game.config.width/2, game.config.height/2, 'switcher').setScale(0).play('switch');
 
         this.input.on('pointerdown', () => {
-            this.switcher.x = this.input.x;
-            this.switcher.y = this.input.y;
-            this.tweens.add({
-                targets: [this.switcher],
-                scaleX: 1,
-                scaleY: 1,
-                duration: 100
-            });
+            if (this.switcher.scale === 0) {
+                this.switcher.x = this.input.x;
+                this.switcher.y = this.input.y;
+                this.tweens.add({
+                    targets: [this.switcher],
+                    scaleX: 1,
+                    scaleY: 1,
+                    duration: 100,
+                    ease: 'Back.easeOut'
+                });
+            }
         });
 
         this.input.on('pointerup', () => {
-            console.log('up');
             this.tweens.add({
                 targets: [this.switcher],
                 scaleX: 0,
                 scaleY: 0,
-                duration: 100
+                duration: 100,
+                ease: 'Back.easeIn'
             });
-        })
+            if (this.switcher.anims.currentFrame.index != 1) {
+                this.player.fillColor = eval('Color'+(this.switcher.anims.currentFrame.index - 1));
+            }
+        });
     }
 
-    update() {
+    update() {        
+        if (Math.abs(this.input.x - this.switcher.x) <= 70 && Math.abs(this.input.y - this.switcher.y) <= 70) {
+            this.switcher.play({key: 'switch', startFrame: 0});
+
+        } else if (Math.abs(this.input.x - this.switcher.x) <= 70 && this.switcher.y - this.input.y > 70) {
+            this.switcher.play({key: 'switch', startFrame: 1});
+
+        } else if (this.input.x - this.switcher.x > 70 && Math.abs(this.input.y - this.switcher.y) <= 70) {
+            this.switcher.play({key: 'switch', startFrame: 2});
+
+        } else if (Math.abs(this.input.x - this.switcher.x) <= 70 && this.input.y - this.switcher.y > 70) {
+            this.switcher.play({key: 'switch', startFrame: 3});
+
+        } else if (this.switcher.x - this.input.x > 70 && Math.abs(this.input.y - this.switcher.y) <= 70) {
+            this.switcher.play({key: 'switch', startFrame: 4});
+        }
+
+
         if (keyW.isDown && this.player.y >= 100) {
             this.player.y -= moveSpeed;
         }
@@ -65,10 +86,4 @@ class Play extends Phaser.Scene {
             this.player.x += moveSpeed;
         }
     }
-
-    // switcher_scale(scale) {
-    //     this.tweens.add({
-
-    //     })
-    // }
 }
