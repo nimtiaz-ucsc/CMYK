@@ -8,9 +8,9 @@ let keyW, keyA, keyS, keyD;
 
 let moveSpeed = 10;
 
-let RED = 0x882222;
-let BLUE = 0x222288
-let GREEN = 0x228822;
-let YELLOW = 0x888822
+let Color1 = 0x2ce8f5;
+let Color2 = 0xfeae34
+let Color3 = 0x5a6988;
+let Color4 = 0xfb2d9e;
 
 let game = new Phaser.Game(config);

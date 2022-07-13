@@ -4,7 +4,7 @@ class Play extends Phaser.Scene {
     }
 
     preload() {
-        //
+        this.load.spritesheet('switcher', './assets/switcher.png', {frameWidth: 280, frameHeight: 280, startFrame: 0, endFrame: 4});
     }
 
     create() {
@@ -13,35 +13,42 @@ class Play extends Phaser.Scene {
         keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
 
-        this.player = this.add.rectangle(game.config.width/4, game.config.height/2, 100, 200, RED).setOrigin(0.5);
+        this.player = this.add.rectangle(game.config.width/4, game.config.height/2, 100, 200, Color1).setOrigin(0.5);
 
-        this.switcher = this.add.group();
-        this.rect0 = this.add.rectangle(game.config.width/2, game.config.height/2, 100, 100, GREEN).setOrigin(0).setAngle(45);
-        this.rect1 = this.add.rectangle(game.config.width/2, game.config.height/2, 100, 100, BLUE).setOrigin(0).setAngle(45*3);
-        this.rect2 = this.add.rectangle(game.config.width/2, game.config.height/2, 100, 100, YELLOW).setOrigin(0).setAngle(45*5);
-        this.rect3 = this.add.rectangle(game.config.width/2, game.config.height/2, 100, 100, RED).setOrigin(0).setAngle(45*7);
-        this.rect4 = this.add.rectangle(game.config.width/2, game.config.height/2, 100, 100, 0xFFFFFF).setAngle(45);
+        this.switcher = this.add.sprite(game.config.width/2, game.config.height/2, 'switcher').setScale(0);
 
-        this.switcher.add(this.rect0);
-        this.switcher.add(this.rect1);
-        this.switcher.add(this.rect2);
-        this.switcher.add(this.rect3);
-        this.switcher.add(this.rect4);
+        this.anims.create({
+            key: 'switch',
+            frames: this.anims.generateFrameNumbers('switcher', {start: 0, end: 4, first: 0}),
+            frameRate: 0,
+            repeat: 0
+        })
 
-        this.tweens.add({
-            targets: [this.switcher.getChildren()],
-            scaleX: 1,
-            scaleY: 1,
-            duration: 100
-        });
+        //this.frame = 0;
 
         this.input.on('pointerdown', () => {
-            console.log('click');
+            this.switcher.x = this.input.x;
+            this.switcher.y = this.input.y;
+            this.tweens.add({
+                targets: [this.switcher],
+                scaleX: 1,
+                scaleY: 1,
+                duration: 100
+            });
         });
+
+        this.input.on('pointerup', () => {
+            console.log('up');
+            this.tweens.add({
+                targets: [this.switcher],
+                scaleX: 0,
+                scaleY: 0,
+                duration: 100
+            });
+        })
     }
 
     update() {
-
         if (keyW.isDown && this.player.y >= 100) {
             this.player.y -= moveSpeed;
         }
@@ -58,4 +65,10 @@ class Play extends Phaser.Scene {
             this.player.x += moveSpeed;
         }
     }
+
+    // switcher_scale(scale) {
+    //     this.tweens.add({
+
+    //     })
+    // }
 }
