@@ -13,6 +13,9 @@ class Play extends Phaser.Scene {
         keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
 
+        this.bg = this.add.rectangle(0, 0, game.config.width, game.config.height, 0xFFFFFF).setOrigin(0);
+        this.switcher_bg = this.add.rectangle(0, 0, game.config.width, game.config.height, 0xCCCCDD).setOrigin(0).setAlpha(0).setDepth(9);
+
         this.player = this.add.rectangle(game.config.width/2, game.config.height/2, 100, 200, Color1).setOrigin(0.5);
 
         this.anims.create({
@@ -22,7 +25,7 @@ class Play extends Phaser.Scene {
             repeat: 0
         })
 
-        this.switcher = this.add.sprite(game.config.width/2, game.config.height/2, 'switcher').setScale(0).play('switch');
+        this.switcher = this.add.sprite(game.config.width/2, game.config.height/2, 'switcher').setScale(0).play('switch').setDepth(10);
 
         this.input.on('pointerdown', () => {
             if (this.switcher.scale === 0) {
@@ -34,6 +37,11 @@ class Play extends Phaser.Scene {
                     scaleY: 1,
                     duration: 100,
                     ease: 'Back.easeOut'
+                });
+                this.tweens.add({
+                    targets: [this.switcher_bg],
+                    alpha: 0.5,
+                    duration: 100
                 });
                 moveSpeed = 1;
             }
@@ -47,6 +55,11 @@ class Play extends Phaser.Scene {
                 duration: 100,
                 ease: 'Back.easeIn'
             });
+            this.tweens.add({
+                    targets: [this.switcher_bg],
+                    alpha: 0,
+                    duration: 100
+                });
             if (this.switcher.anims.currentFrame.index != 1) {
                 this.player.fillColor = eval('Color'+(this.switcher.anims.currentFrame.index - 1));
             }
@@ -55,20 +68,25 @@ class Play extends Phaser.Scene {
     }
 
     update() {        
-        if (Math.abs(this.input.x - this.switcher.x) <= 70 && Math.abs(this.input.y - this.switcher.y) <= 70) {
+        if (Math.abs(this.input.x - this.switcher.x) <= 35 && Math.abs(this.input.y - this.switcher.y) <= 35) {
             this.switcher.play({key: 'switch', startFrame: 0});
+            this.switcher_bg.fillColor = 0xCCCCDD;
 
-        } else if (Math.abs(this.input.x - this.switcher.x) <= 70 && this.switcher.y - this.input.y > 70) {
+        } else if (Math.abs(this.input.x - this.switcher.x) <= 35 && this.switcher.y - this.input.y > 35) {
             this.switcher.play({key: 'switch', startFrame: 1});
+            this.switcher_bg.fillColor = eval('Color'+(this.switcher.anims.currentFrame.index - 1));
 
-        } else if (this.input.x - this.switcher.x > 70 && Math.abs(this.input.y - this.switcher.y) <= 70) {
+        } else if (this.input.x - this.switcher.x > 35 && Math.abs(this.input.y - this.switcher.y) <= 35) {
             this.switcher.play({key: 'switch', startFrame: 2});
+            this.switcher_bg.fillColor = eval('Color'+(this.switcher.anims.currentFrame.index - 1));
 
-        } else if (Math.abs(this.input.x - this.switcher.x) <= 70 && this.input.y - this.switcher.y > 70) {
+        } else if (Math.abs(this.input.x - this.switcher.x) <= 35 && this.input.y - this.switcher.y > 35) {
             this.switcher.play({key: 'switch', startFrame: 3});
+            this.switcher_bg.fillColor = eval('Color'+(this.switcher.anims.currentFrame.index - 1));
 
-        } else if (this.switcher.x - this.input.x > 70 && Math.abs(this.input.y - this.switcher.y) <= 70) {
+        } else if (this.switcher.x - this.input.x > 35 && Math.abs(this.input.y - this.switcher.y) <= 35) {
             this.switcher.play({key: 'switch', startFrame: 4});
+            this.switcher_bg.fillColor = eval('Color'+(this.switcher.anims.currentFrame.index - 1));
         }
 
 
