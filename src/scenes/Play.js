@@ -13,7 +13,7 @@ class Play extends Phaser.Scene {
         keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
 
-        this.player = this.add.rectangle(game.config.width/4, game.config.height/2, 100, 200, Color1).setOrigin(0.5);
+        this.player = this.add.rectangle(game.config.width/2, game.config.height/2, 100, 200, Color1).setOrigin(0.5);
 
         this.anims.create({
             key: 'switch',
@@ -35,6 +35,7 @@ class Play extends Phaser.Scene {
                     duration: 100,
                     ease: 'Back.easeOut'
                 });
+                moveSpeed = 1;
             }
         });
 
@@ -49,6 +50,7 @@ class Play extends Phaser.Scene {
             if (this.switcher.anims.currentFrame.index != 1) {
                 this.player.fillColor = eval('Color'+(this.switcher.anims.currentFrame.index - 1));
             }
+            moveSpeed = 10;
         });
     }
 

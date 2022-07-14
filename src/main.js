@@ -1,5 +1,5 @@
 let config = {
-    width: 720,
+    width:  1080,
     height: 1080,
     scene: [Play]  
 };
