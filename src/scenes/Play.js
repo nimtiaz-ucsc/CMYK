@@ -4,7 +4,7 @@ class Play extends Phaser.Scene {
     }
 
     preload() {
-        this.load.spritesheet('switcher', './assets/switcher.png', {frameWidth: 280, frameHeight: 280, startFrame: 0, endFrame: 4});
+
     }
 
     create() {
@@ -13,82 +13,23 @@ class Play extends Phaser.Scene {
         keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
 
-        this.bg = this.add.rectangle(0, 0, game.config.width, game.config.height, 0xFFFFFF).setOrigin(0);
-        this.switcher_bg = this.add.rectangle(0, 0, game.config.width, game.config.height, 0xCCCCDD).setOrigin(0).setAlpha(0).setDepth(9);
-
-        this.player = this.add.rectangle(game.config.width/2, game.config.height/2, 100, 200, Color1).setOrigin(0.5);
-
-        this.anims.create({
-            key: 'switch',
-            frames: this.anims.generateFrameNumbers('switcher', {start: 0, end: 4, first: 0}),
-            frameRate: 0,
-            repeat: 0
-        })
-
-        this.switcher = this.add.sprite(game.config.width/2, game.config.height/2, 'switcher').setScale(0).play('switch').setDepth(10);
+        this.player = this.add.rectangle(game.config.width/2, game.config.height/2, 100, 200, Color).setOrigin(0.5);
+        this.physics.add.existing(this.player);
 
         this.input.on('pointerdown', () => {
-            if (this.switcher.scale === 0) {
-                this.switcher.x = this.input.x;
-                this.switcher.y = this.input.y;
-                this.tweens.add({
-                    targets: [this.switcher],
-                    scaleX: 1,
-                    scaleY: 1,
-                    duration: 100,
-                    ease: 'Back.easeOut'
-                });
-                this.tweens.add({
-                    targets: [this.switcher_bg],
-                    alpha: 0.5,
-                    duration: 100
-                });
-                moveSpeed = 1;
-            }
+            this.scene.pause('play');
+            this.scene.launch('switcher');
         });
 
-        this.input.on('pointerup', () => {
-            this.tweens.add({
-                targets: [this.switcher],
-                scaleX: 0,
-                scaleY: 0,
-                duration: 100,
-                ease: 'Back.easeIn'
-            });
-            this.tweens.add({
-                    targets: [this.switcher_bg],
-                    alpha: 0,
-                    duration: 100
-                });
-            if (this.switcher.anims.currentFrame.index != 1) {
-                this.player.fillColor = eval('Color'+(this.switcher.anims.currentFrame.index - 1));
-            }
-            moveSpeed = 10;
-        });
+        //this.enemies = this.add.group();
+        this.enemy = this.add.rectangle(game.config.width/2, game.config.height/4, 50, 50, eval('Color' + Phaser.Math.Between(1, 4))).setOrigin(0.5);
+        this.physics.add.existing(this.enemy);
     }
 
-    update() {        
-        if (Math.abs(this.input.x - this.switcher.x) <= 35 && Math.abs(this.input.y - this.switcher.y) <= 35) {
-            this.switcher.play({key: 'switch', startFrame: 0});
-            this.switcher_bg.fillColor = 0xCCCCDD;
-
-        } else if (Math.abs(this.input.x - this.switcher.x) <= 35 && this.switcher.y - this.input.y > 35) {
-            this.switcher.play({key: 'switch', startFrame: 1});
-            this.switcher_bg.fillColor = eval('Color'+(this.switcher.anims.currentFrame.index - 1));
-
-        } else if (this.input.x - this.switcher.x > 35 && Math.abs(this.input.y - this.switcher.y) <= 35) {
-            this.switcher.play({key: 'switch', startFrame: 2});
-            this.switcher_bg.fillColor = eval('Color'+(this.switcher.anims.currentFrame.index - 1));
-
-        } else if (Math.abs(this.input.x - this.switcher.x) <= 35 && this.input.y - this.switcher.y > 35) {
-            this.switcher.play({key: 'switch', startFrame: 3});
-            this.switcher_bg.fillColor = eval('Color'+(this.switcher.anims.currentFrame.index - 1));
-
-        } else if (this.switcher.x - this.input.x > 35 && Math.abs(this.input.y - this.switcher.y) <= 35) {
-            this.switcher.play({key: 'switch', startFrame: 4});
-            this.switcher_bg.fillColor = eval('Color'+(this.switcher.anims.currentFrame.index - 1));
+    update() {  
+        if (this.player.fillColor != Color) {
+            this.player.fillColor = Color;
         }
-
 
         if (keyW.isDown && this.player.y >= 100) {
             this.player.y -= moveSpeed;
