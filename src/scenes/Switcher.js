@@ -67,19 +67,19 @@ class Switcher extends Phaser.Scene {
 
         } else if (Math.abs(this.input.x - this.switcher.x) <= 35 && this.switcher.y - this.input.y > 35) {
             this.switcher.play({key: 'switch', startFrame: 1});
-            this.switcher_bg.fillColor = eval('Color'+(this.switcher.anims.currentFrame.index - 1));
-
-        } else if (this.input.x - this.switcher.x > 35 && Math.abs(this.input.y - this.switcher.y) <= 35) {
-            this.switcher.play({key: 'switch', startFrame: 2});
-            this.switcher_bg.fillColor = eval('Color'+(this.switcher.anims.currentFrame.index - 1));
-
-        } else if (Math.abs(this.input.x - this.switcher.x) <= 35 && this.input.y - this.switcher.y > 35) {
-            this.switcher.play({key: 'switch', startFrame: 3});
-            this.switcher_bg.fillColor = eval('Color'+(this.switcher.anims.currentFrame.index - 1));
+            this.switcher_bg.fillColor = Color1
 
         } else if (this.switcher.x - this.input.x > 35 && Math.abs(this.input.y - this.switcher.y) <= 35) {
+            this.switcher.play({key: 'switch', startFrame: 2});
+            this.switcher_bg.fillColor = Color2
+        } else if (this.input.x - this.switcher.x > 35 && Math.abs(this.input.y - this.switcher.y) <= 35) {
+            this.switcher.play({key: 'switch', startFrame: 3});
+            this.switcher_bg.fillColor = Color3
+
+        } else if (Math.abs(this.input.x - this.switcher.x) <= 35 && this.input.y - this.switcher.y > 35) {
             this.switcher.play({key: 'switch', startFrame: 4});
-            this.switcher_bg.fillColor = eval('Color'+(this.switcher.anims.currentFrame.index - 1));
+            this.switcher_bg.fillColor = Color4
+
         }
     }
 }
