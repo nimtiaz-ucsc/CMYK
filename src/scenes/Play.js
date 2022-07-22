@@ -13,8 +13,8 @@ class Play extends Phaser.Scene {
         keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
 
-        this.player = this.add.rectangle(game.config.width/2, game.config.height/2, 100, 200, Color).setOrigin(0.5);
-        this.physics.add.existing(this.player);
+        this.player = this.physics.add.sprite(game.config.width/2, game.config.height/2, 'player').setOrigin(0.5).play('player1').setCollideWorldBounds(true);
+        this.player.color = Color;
 
         this.input.on('pointerdown', () => {
             this.scene.pause('play');
@@ -27,23 +27,35 @@ class Play extends Phaser.Scene {
     }
 
     update() {  
-        if (this.player.fillColor != Color) {
-            this.player.fillColor = Color;
+        if (this.player.color != Color) {
+            this.player.color = Color;
+            if (Color === Color1) {
+                this.player.play('player1');
+            }
+            if (Color === Color2) {
+                this.player.play('player2');
+            }
+            if (Color === Color3) {
+                this.player.play('player3');
+            }
+            if (Color === Color4) {
+                this.player.play('player4');
+            }
         }
 
-        if (keyW.isDown && this.player.y >= 100) {
+        if (keyW.isDown) {
             this.player.y -= moveSpeed;
         }
 
-        if (keyA.isDown && this.player.x >= 50) {
+        if (keyA.isDown) {
             this.player.x -= moveSpeed;
         }
 
-        if (keyS.isDown && this.player.y <= game.config.height - 100) {
+        if (keyS.isDown) {
             this.player.y += moveSpeed;
         }
 
-        if (keyD.isDown && this.player.x <= game.config.width - 50) {
+        if (keyD.isDown) {
             this.player.x += moveSpeed;
         }
     }

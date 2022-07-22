@@ -8,14 +8,6 @@ class Switcher extends Phaser.Scene {
     }
 
     create() {
-
-        this.anims.create({
-            key: 'switch',
-            frames: this.anims.generateFrameNumbers('switcher', {start: 0, end: 4, first: 0}),
-            frameRate: 0,
-            repeat: 0
-        })
-
         this.switcher_bg = this.add.rectangle(0, 0, game.config.width, game.config.height, 0xC0CBDC).setOrigin(0).setAlpha(0);
         // tile sprite of the corresponding shape, scrolling in the direction of the color on the switcher
 
