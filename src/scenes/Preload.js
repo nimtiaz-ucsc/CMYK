@@ -5,6 +5,8 @@ class Preload extends Phaser.Scene {
 
     preload() {
         this.load.spritesheet('switcher', 'assets/switcher.png', {frameWidth: 280, frameHeight: 280, startFrame: 0, endFrame: 4});
+        this.load.atlas('switcher_bg', './assets/switcher_bg.png', './assets/switcher_bg.json');
+
         this.load.atlas('player', './assets/player_proto.png', './assets/player_proto.json');
     }
 
@@ -26,7 +28,7 @@ class Preload extends Phaser.Scene {
                 end: 1,
                 zeroPad: 1
             }),
-            frameRate: 10,
+            frameRate: 6,
             repeat: -1
         });
 
@@ -38,7 +40,7 @@ class Preload extends Phaser.Scene {
                 end: 1,
                 zeroPad: 1
             }),
-            frameRate: 10,
+            frameRate: 6,
             repeat: -1
         });
 
@@ -50,7 +52,7 @@ class Preload extends Phaser.Scene {
                 end: 1,
                 zeroPad: 1
             }),
-            frameRate: 10,
+            frameRate: 6,
             repeat: -1
         });
 
@@ -62,7 +64,7 @@ class Preload extends Phaser.Scene {
                 end: 1,
                 zeroPad: 1
             }),
-            frameRate: 10,
+            frameRate: 6,
             repeat: -1
         });
 

@@ -22,8 +22,8 @@ class Play extends Phaser.Scene {
         });
 
         //this.enemies = this.add.group();
-        this.enemy = this.add.rectangle(game.config.width/2, game.config.height/4, 50, 50, eval('Color' + Phaser.Math.Between(1, 4))).setOrigin(0.5);
-        this.physics.add.existing(this.enemy);
+        // this.enemy = this.add.rectangle(game.config.width/2, game.config.height/4, 50, 50, eval('Color' + Phaser.Math.Between(1, 4))).setOrigin(0.5);
+        // this.physics.add.existing(this.enemy);
     }
 
     update() {  

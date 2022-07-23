@@ -8,8 +8,8 @@ class Switcher extends Phaser.Scene {
     }
 
     create() {
-        this.switcher_bg = this.add.rectangle(0, 0, game.config.width, game.config.height, 0xC0CBDC).setOrigin(0).setAlpha(0);
-        // tile sprite of the corresponding shape, scrolling in the direction of the color on the switcher
+        //this.switcher_bg = this.add.rectangle(0, 0, game.config.width, game.config.height, 0xC0CBDC).setOrigin(0).setAlpha(0);
+        this.switcher_bg = this.add.tileSprite(game.config.width/2, game.config.height/2, game.config.width, game.config.height, 'switcher_bg').setOrigin(0.5).setAlpha(0);
 
         this.switcher = this.add.sprite(this.input.x, this.input.y, 'switcher').play('switch').setScale(0);
 
@@ -53,25 +53,25 @@ class Switcher extends Phaser.Scene {
     }
 
     update() {
-        if (Math.abs(this.input.x - this.switcher.x) <= 35 && Math.abs(this.input.y - this.switcher.y) <= 35) {
-            this.switcher.play({key: 'switch', startFrame: 0});
-            this.switcher_bg.fillColor = 0xC0CBDC;
+        // if (Math.abs(this.input.x - this.switcher.x) <= 35 && Math.abs(this.input.y - this.switcher.y) <= 35) {
+        //     this.switcher.play({key: 'switch', startFrame: 0});
+        //     this.switcher_bg.fillColor = 0xC0CBDC;
 
-        } else if (Math.abs(this.input.x - this.switcher.x) <= 35 && this.switcher.y - this.input.y > 35) {
-            this.switcher.play({key: 'switch', startFrame: 1});
-            this.switcher_bg.fillColor = Color1
+        // } else if (Math.abs(this.input.x - this.switcher.x) <= 35 && this.switcher.y - this.input.y > 35) {
+        //     this.switcher.play({key: 'switch', startFrame: 1});
+        //     this.switcher_bg.fillColor = Color1
 
-        } else if (this.switcher.x - this.input.x > 35 && Math.abs(this.input.y - this.switcher.y) <= 35) {
-            this.switcher.play({key: 'switch', startFrame: 2});
-            this.switcher_bg.fillColor = Color2
-        } else if (this.input.x - this.switcher.x > 35 && Math.abs(this.input.y - this.switcher.y) <= 35) {
-            this.switcher.play({key: 'switch', startFrame: 3});
-            this.switcher_bg.fillColor = Color3
+        // } else if (this.switcher.x - this.input.x > 35 && Math.abs(this.input.y - this.switcher.y) <= 35) {
+        //     this.switcher.play({key: 'switch', startFrame: 2});
+        //     this.switcher_bg.fillColor = Color2
+        // } else if (this.input.x - this.switcher.x > 35 && Math.abs(this.input.y - this.switcher.y) <= 35) {
+        //     this.switcher.play({key: 'switch', startFrame: 3});
+        //     this.switcher_bg.fillColor = Color3
 
-        } else if (Math.abs(this.input.x - this.switcher.x) <= 35 && this.input.y - this.switcher.y > 35) {
-            this.switcher.play({key: 'switch', startFrame: 4});
-            this.switcher_bg.fillColor = Color4
+        // } else if (Math.abs(this.input.x - this.switcher.x) <= 35 && this.input.y - this.switcher.y > 35) {
+        //     this.switcher.play({key: 'switch', startFrame: 4});
+        //     this.switcher_bg.fillColor = Color4
 
-        }
+        // }
     }
 }
