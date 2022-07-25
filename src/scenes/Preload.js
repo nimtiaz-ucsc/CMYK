@@ -19,6 +19,68 @@ class Preload extends Phaser.Scene {
             repeat: 0
         });
 
+        this.anims.create({
+            key: 'color0',
+            frames: this.anims.generateFrameNames('switcher_bg', {
+                prefix: 'color0_',
+                start: 0,
+                end: 0,
+                zeroPad: 1
+            }),
+            frameRate: 0,
+            repeat: 0
+        });
+
+        this.anims.create({
+            key: 'color1',
+            frames: this.anims.generateFrameNames('switcher_bg', {
+                prefix: 'color1_',
+                start: 0,
+                end: 1,
+                zeroPad: 1
+            }),
+            frameRate: 6,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: 'color2',
+            frames: this.anims.generateFrameNames('switcher_bg', {
+                prefix: 'color2_',
+                start: 0,
+                end: 1,
+                zeroPad: 1
+            }),
+            frameRate: 6,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: 'color3',
+            frames: this.anims.generateFrameNames('switcher_bg', {
+                prefix: 'color3_',
+                start: 0,
+                end: 1,
+                zeroPad: 1
+            }),
+            frameRate: 6,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: 'color4',
+            frames: this.anims.generateFrameNames('switcher_bg', {
+                prefix: 'color4_',
+                start: 0,
+                end: 1,
+                zeroPad: 1
+            }),
+            frameRate: 6,
+            repeat: -1
+        });
+        
+        
+
         // player animations
         this.anims.create({
             key: 'player1',
