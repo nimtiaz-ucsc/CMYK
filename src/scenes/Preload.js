@@ -8,10 +8,12 @@ class Preload extends Phaser.Scene {
         this.load.atlas('switcher_bg', './assets/switcher_bg.png', './assets/switcher_bg.json');
 
         this.load.atlas('player', './assets/player_proto.png', './assets/player_proto.json');
+
+        this.load.atlas('enemy', './assets/enemy_proto.png', './assets/enemy_proto.json');
     }
 
     create() {
-        //switcher animations
+        // switcher animations
         this.anims.create({
             key: 'switch',
             frames: this.anims.generateFrameNumbers('switcher', {start: 0, end: 4, first: 0}),
@@ -80,7 +82,6 @@ class Preload extends Phaser.Scene {
         });
         
         
-
         // player animations
         this.anims.create({
             key: 'player1',
@@ -128,6 +129,104 @@ class Preload extends Phaser.Scene {
             }),
             frameRate: 6,
             repeat: -1
+        });
+
+
+        // enemy animations
+        this.anims.create({
+            key: 'enemy1',
+            frames: this.anims.generateFrameNames('enemy', {
+                prefix: 'enemy1_',
+                start: 0,
+                end: 1,
+                zeroPad: 1
+            }),
+            frameRate: 6,
+            repeat: -1
+        });
+        
+        this.anims.create({
+            key: 'enemy1_alt',
+            frames: this.anims.generateFrameNames('enemy', {
+                prefix: 'enemy1_alt_',
+                start: 0,
+                end: 1,
+                zeroPad: 1
+            }),
+            frameRate: 6,
+            repeat: 0
+        });
+
+        this.anims.create({
+            key: 'enemy2',
+            frames: this.anims.generateFrameNames('enemy', {
+                prefix: 'enemy2_',
+                start: 0,
+                end: 1,
+                zeroPad: 1
+            }),
+            frameRate: 6,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: 'enemy2_alt',
+            frames: this.anims.generateFrameNames('enemy', {
+                prefix: 'enemy2_alt_',
+                start: 0,
+                end: 1,
+                zeroPad: 1
+            }),
+            frameRate: 6,
+            repeat: 0
+        });
+
+        this.anims.create({
+            key: 'enemy3',
+            frames: this.anims.generateFrameNames('enemy', {
+                prefix: 'enemy3_',
+                start: 0,
+                end: 1,
+                zeroPad: 1
+            }),
+            frameRate: 6,
+            repeat: -1
+        });
+        
+        this.anims.create({
+            key: 'enemy3_alt',
+            frames: this.anims.generateFrameNames('enemy', {
+                prefix: 'enemy3_alt_',
+                start: 0,
+                end: 1,
+                zeroPad: 1
+            }),
+            frameRate: 6,
+            repeat: 0
+        });
+
+        this.anims.create({
+            key: 'enemy4',
+            frames: this.anims.generateFrameNames('enemy', {
+                prefix: 'enemy4_',
+                start: 0,
+                end: 1,
+                zeroPad: 1
+            }),
+            frameRate: 6,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: 'enemy4_alt',
+            frames: this.anims.generateFrameNames('enemy', {
+                prefix: 'enemy4_alt_',
+                start: 0,
+                end: 1,
+                zeroPad: 1
+            }),
+            frameRate: 6,
+            repeat: 0
         });
 
         this.scene.start('play');

@@ -13,7 +13,7 @@ class Play extends Phaser.Scene {
         keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
 
-        this.player = this.physics.add.sprite(game.config.width/2, game.config.height/2, 'player').setOrigin(0.5).play('player1').setCollideWorldBounds(true);
+        this.player = this.physics.add.sprite(game.config.width/2, game.config.height/2, 'player').setOrigin(0.5).play('player' + Phaser.Math.Between(1, 4)).setCollideWorldBounds(true);
         this.player.color = Color;
 
         this.input.on('pointerdown', () => {
@@ -21,12 +21,20 @@ class Play extends Phaser.Scene {
             this.scene.launch('switcher');
         });
 
-        //this.enemies = this.add.group();
-        // this.enemy = this.add.rectangle(game.config.width/2, game.config.height/4, 50, 50, eval('Color' + Phaser.Math.Between(1, 4))).setOrigin(0.5);
-        // this.physics.add.existing(this.enemy);
+        this.enemies = this.physics.add.group();
+        this.enemies.add(this.physics.add.sprite(game.config.width/3, game.config.height/4, 'enemy').setOrigin(0.5).play('enemy' + Phaser.Math.Between(1, 4)));
+        this.enemies.add(this.physics.add.sprite(2*game.config.width/3, game.config.height/4, 'enemy').setOrigin(0.5).play('enemy' + Phaser.Math.Between(1, 4)));
+        this.enemies.add(this.physics.add.sprite(game.config.width/3, 3*game.config.height/4, 'enemy').setOrigin(0.5).play('enemy' + Phaser.Math.Between(1, 4)));
+        this.enemies.add(this.physics.add.sprite(2*game.config.width/3, 3*game.config.height/4, 'enemy').setOrigin(0.5).play('enemy' + Phaser.Math.Between(1, 4)));
+
+        //this.enemy = this.physics.add.sprite(game.config.width/2, game.config.height/4, 'enemy').setOrigin(0.5).play('enemy' + Phaser.Math.Between(1, 4));
+
+        this.physics.add.overlap(this.player, this.enemies, this.destroyEnemy)
+
+        
     }
 
-    update() {  
+    update() {
         if (this.player.color != Color) {
             this.player.color = Color;
             if (Color === Color1) {
@@ -57,6 +65,16 @@ class Play extends Phaser.Scene {
 
         if (keyD.isDown) {
             this.player.x += moveSpeed;
+        }
+    }
+
+    destroyEnemy(player, enemy) {
+        if (player.anims.currentAnim.key.substring(6) === enemy.anims.currentAnim.key.substring(5)) {
+            enemy.body.destroy();
+            enemy.play(enemy.anims.currentAnim.key + "_alt");
+            enemy.on('animationcomplete', () => {
+                enemy.destroy();
+            });
         }
     }
 }
