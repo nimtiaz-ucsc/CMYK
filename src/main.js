@@ -6,20 +6,20 @@ let config = {
     physics: {
         default: 'arcade',
         arcade: {
-            debug: false
+            debug: true
         }
     }
 };
 
-let keyW, keyA, keyS, keyD;
+let keyW, keyA, keyS, keyD, keySPACE;
 
-let moveSpeed = 10;
+let moveSpeed = 500;
 
-let Color1 = 0x2ce8f5; // cyan
-let Color2 = 0xfb2d9e; // magenta
-let Color3 = 0xfeae34; // yellow
-let Color4 = 0x5a6988; // key
+let ColorCode1 = 0x2ce8f5; // cyan
+let ColorCode2 = 0xfb2d9e; // magenta
+let ColorCode3 = 0xfeae34; // yellow
+let ColorCode4 = 0x5a6988; // key
 
-let Color = eval('Color' + Phaser.Math.Between(1, 4));
+let Color = Phaser.Math.Between(1, 4);
 
 let game = new Phaser.Game(config);

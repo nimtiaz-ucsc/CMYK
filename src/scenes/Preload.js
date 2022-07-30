@@ -8,6 +8,7 @@ class Preload extends Phaser.Scene {
         this.load.atlas('switcher_bg', './assets/switcher_bg.png', './assets/switcher_bg.json');
 
         this.load.atlas('player', './assets/player_proto.png', './assets/player_proto.json');
+        this.load.atlas('bullet', './assets/bullet_proto.png', './assets/bullet_proto.json');
 
         this.load.atlas('enemy', './assets/enemy_proto.png', './assets/enemy_proto.json');
     }
@@ -130,6 +131,103 @@ class Preload extends Phaser.Scene {
             frameRate: 6,
             repeat: -1
         });
+
+        // bullet animations
+        this.anims.create({
+            key: 'bullet1', 
+            frames: this.anims.generateFrameNames('bullet', {
+                prefix: 'bullet1_',
+                start: 0,
+                end: 0,
+                zeroPad: 1
+            }),
+            frameRate: 0,
+            repeat: 0
+        })
+
+        this.anims.create({
+            key: 'blast1', 
+            frames: this.anims.generateFrameNames('bullet', {
+                prefix: 'blast1_',
+                start: 0,
+                end: 0,
+                zeroPad: 1
+            }),
+            frameRate: 3,
+            repeat: 0
+        })
+
+        this.anims.create({
+            key: 'bullet2', 
+            frames: this.anims.generateFrameNames('bullet', {
+                prefix: 'bullet2_',
+                start: 0,
+                end: 0,
+                zeroPad: 1
+            }),
+            frameRate: 0,
+            repeat: 0
+        })
+
+        this.anims.create({
+            key: 'blast2', 
+            frames: this.anims.generateFrameNames('bullet', {
+                prefix: 'blast2_',
+                start: 0,
+                end: 0,
+                zeroPad: 1
+            }),
+            frameRate: 3,
+            repeat: 0
+        })
+
+        this.anims.create({
+            key: 'bullet3', 
+            frames: this.anims.generateFrameNames('bullet', {
+                prefix: 'bullet3_',
+                start: 0,
+                end: 0,
+                zeroPad: 1
+            }),
+            frameRate: 0,
+            repeat: 0
+        })
+
+        this.anims.create({
+            key: 'blast3', 
+            frames: this.anims.generateFrameNames('bullet', {
+                prefix: 'blast3_',
+                start: 0,
+                end: 0,
+                zeroPad: 1
+            }),
+            frameRate: 3,
+            repeat: 0
+        })
+
+        this.anims.create({
+            key: 'bullet4', 
+            frames: this.anims.generateFrameNames('bullet', {
+                prefix: 'bullet4_',
+                start: 0,
+                end: 0,
+                zeroPad: 1
+            }),
+            frameRate: 0,
+            repeat: 0
+        })
+
+        this.anims.create({
+            key: 'blast4', 
+            frames: this.anims.generateFrameNames('bullet', {
+                prefix: 'blast4_',
+                start: 0,
+                end: 0,
+                zeroPad: 1
+            }),
+            frameRate: 3,
+            repeat: 0
+        })
 
 
         // enemy animations

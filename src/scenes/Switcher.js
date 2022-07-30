@@ -42,7 +42,7 @@ class Switcher extends Phaser.Scene {
             });
 
             if (this.switcher.anims.currentFrame.index != 1) {
-                Color = eval('Color'+(this.switcher.anims.currentFrame.index - 1));
+                Color = this.switcher.anims.currentFrame.index - 1;
             }
 
             this.scene.resume('play');
