@@ -28,27 +28,29 @@ class Switcher extends Phaser.Scene {
         });
 
         this.input.on('pointerup', () => {
-            this.tweens.add({
-                targets: [this.switcher],
-                scaleX: 0,
-                scaleY: 0,
-                duration: 100,
-                ease: 'Back.easeIn'
-            });
-            this.tweens.add({
-                targets: [this.switcher_bg],
-                alpha: 0,
-                duration: 100
-            });
+            if (!this.input.activePointer.middleButtonDown()) {                
+                this.tweens.add({
+                    targets: [this.switcher],
+                    scaleX: 0,
+                    scaleY: 0,
+                    duration: 100,
+                    ease: 'Back.easeIn'
+                });
+                this.tweens.add({
+                    targets: [this.switcher_bg],
+                    alpha: 0,
+                    duration: 100
+                });
 
-            if (this.switcher.anims.currentFrame.index != 1) {
-                Color = this.switcher.anims.currentFrame.index - 1;
+                if (this.switcher.anims.currentFrame.index != 1) {
+                    Color = this.switcher.anims.currentFrame.index - 1;
+                }
+
+                this.scene.resume('play');
+                this.time.delayedCall(100, () => {
+                    this.scene.stop();
+                });
             }
-
-            this.scene.resume('play');
-            this.time.delayedCall(100, () => {
-                this.scene.stop();
-            });
         })
 
     }
