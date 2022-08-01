@@ -14,14 +14,21 @@ class Play extends Phaser.Scene {
         keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
         keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
-        this.player = this.physics.add.sprite(game.config.width/2, game.config.height/2, 'player').setOrigin(0.5).play('player' + Phaser.Math.Between(1, 4)).setCollideWorldBounds(true);
+        this.player = this.physics.add.sprite(game.config.width/2, game.config.height/2, 'player').setOrigin(0.5).play('player' + Color).setCollideWorldBounds(true);
         this.player.color = Color;
 
         this.bullets = this.physics.add.group();
 
         this.input.on('pointerdown', () => {
-            this.scene.pause('play');
-            this.scene.launch('switcher');
+            this.input.mouse.disableContextMenu();
+            if (this.input.activePointer.middleButtonDown()) {
+                this.scene.pause('play');
+                this.scene.launch('switcher');
+            }
+
+            if (this.input.activePointer.leftButtonDown()) {
+                this.fireBullet();
+            }
         });
 
         this.enemies = this.physics.add.group();
@@ -34,7 +41,7 @@ class Play extends Phaser.Scene {
 
         this.input.keyboard.on('keydown-SPACE', () => {
             this.fireBullet();
-        })
+        });
     }
 
     update() {
@@ -91,6 +98,11 @@ class Play extends Phaser.Scene {
 
     fireBullet() {
         let bullet = this.bullets.add(this.physics.add.sprite(this.player.x + 50, this.player.y, 'bullet').play('bullet' + Color));
-        bullet.setVelocityX(1000)
+        bullet.setVelocityX(1000);
+        this.time.delayedCall(250, () => {
+            if (keySPACE.isDown || this.input.activePointer.leftButtonDown()) {
+                this.fireBullet();
+            }
+        })
     }
 }
