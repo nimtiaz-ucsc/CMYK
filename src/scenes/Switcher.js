@@ -46,7 +46,7 @@ class Switcher extends Phaser.Scene {
                     Color = this.switcher.anims.currentFrame.index - 1;
                 }
 
-                this.scene.resume('play');
+                this.scene.resume('shooter');
                 this.time.delayedCall(100, () => {
                     this.scene.stop();
                 });

@@ -327,6 +327,6 @@ class Preload extends Phaser.Scene {
             repeat: 0
         });
 
-        this.scene.start('play');
+        this.scene.start('shooter');
     }
 }
